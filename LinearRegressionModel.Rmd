@@ -1,0 +1,68 @@
+
+# Name - Aman Raj
+# GRIP : The Sparks Foundation
+# Data Science and Business Analytics Internship
+# Task_1 : Prediction using supervised Machine Learning
+# Importing data from csv file and storing it in Score
+```{r}
+Score <- read.csv("D:/SparksFoundation/LinearRegression.csv")
+```
+```{r}
+Score
+```
+
+#summary of the data
+```{r}
+summary(Score)
+```
+#Scatter plot of the data
+```{r}
+plot(Score)
+```
+# Splitting the data into training and test set
+```{r}
+library(caTools)
+```
+
+```{r}
+split <- sample.split(Score$Scores, SplitRatio=0.8)
+split
+```
+```{r}
+train <- subset(Score, split==TRUE)
+test <- subset(Score, split==FALSE)
+```
+```{r}
+train
+```
+```{r}
+test
+```
+
+#Regression Model
+
+```{r}
+Model <- lm(Scores ~., data=train)
+```
+
+```{r}
+summary(Model)
+```
+#Accuracy of ~ 94.5% obtained from Regression model (as given by the R-squared value)
+
+#Prediction on the test set
+```{r}
+pred <- predict(Model, test)
+pred
+```
+#comparing predcted vs actual values for the test set
+```{r}
+plot(test$Scores,type="l", lty=1.8, col="red") #plot of test set values
+lines(pred, type="l", col="blue")
+plot(pred,type="l", lty=1.8, col="blue") #plot of predicted values
+```
+#The Regression line with the scatter plot of given data
+```{r}
+plot(Score)
+abline(Model)
+```
